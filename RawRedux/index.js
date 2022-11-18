@@ -10,6 +10,8 @@ cakes are in shelf and icecreams are on freezer thus
 */
 const redux = require('redux');
 const createStore = redux.createStore ;
+const combineReducers = redux.combineReducers // TO use this method we have create a root redcer and use taht reduvcer in our our code
+
 
 
 const BUY_CAKE = 'BUY_CAKE'
@@ -37,26 +39,62 @@ let buyIcecream = () =>{
     }
 }
 
-const initialState = {
+const initialCakeState = {
     numOfCakes : 10 ,
+}
+
+const intialIceCreamState = {
     numOfIceCreams : 20 ,
 }
 
-const reducer = (state = initialState , action)=>{
+// const initialState = {
+//     numOfCakes : 10 ,
+//     numOfIceCreams : 20 ,
+// }
+
+// const reducer = (state = initialState , action)=>{
+//     switch(action.type){
+//         case BUY_CAKE : return{
+//             ...state , 
+//             numOfCakes : state.numOfCakes-1
+//         }
+//         case BUY_ICECREAM :return{
+//             ...state , 
+//             numOfIceCreams : state.numOfIceCreams-1
+//         }
+//         default : return state
+//     }
+// }
+
+const cakeReducer = (state = initialCakeState , action ) =>{
     switch(action.type){
-        case BUY_CAKE : return{
+        case BUY_CAKE : return {
             ...state , 
-            numOfCakes : state.numOfCakes-1
+            numOfCakes : state.numOfCakes -1 
         }
-        case BUY_ICECREAM :return{
-            ...state , 
-            numOfIceCreams : state.numOfIceCreams-1
-        }
-        default : return state
+        default : return state ;
     }
 }
 
-const store = createStore(reducer) //Responibility -1 Holding the application state
+const iceceamReducer = (state = intialIceCreamState , action ) =>{
+    switch(action.type){
+        case BUY_ICECREAM : return {
+            ...state , 
+            numOfIceCreams : state.numOfIceCreams -1 
+        }
+        default : return state ;
+    }
+}
+
+//COMBINE REDUCER KA ROOT REDUCER
+
+const rootReducer = combineReducers({
+    cake : cakeReducer , 
+    icecream : iceceamReducer
+})
+
+// const store = createStore(reducer) //Responibility -1 Holding the application state      ------------> ONLY ACCEPTS SINGLE REDUCER THUS WE have to use COMBINE REDUCER METHOD SUch that we can use icecreamreducer and cakereducer simultaneously
+const store = createStore(rootReducer);
 console.log('InitialState' , store.getState() ); //Responisibility-2 Allow access via getState method by which we can see current state
 const unsubscribe = store.subscribe(()=>{console.log(`Updated Store`,store.getState())}) //Responibility-3 Allow to listen any changes that has happened to the store current state
 store.dispatch(buyCake())
