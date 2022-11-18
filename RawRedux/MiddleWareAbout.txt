@@ -1,6 +1,0 @@
-provides custom functionality
-provide third party extension point b/w dispatching action and the moment it reaches reducer
-use them for logging , crash reporting , async tasks etc .
-
-install redux-logger to understand use 
-npm install redux-logger

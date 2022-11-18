@@ -1,0 +1,51 @@
+Some time we need to make async calls during api calls
+
+icecream ----> syncronus , 
+
+What : Call the api endpoint and fetch data and store it in the redux state
+state ?
+Actions ?
+Reducer ?
+
+
+STATE :
+-----------------------
+fields 
+
+const state = {
+    loading : '' , //---->spinner loading
+    data : [] , //list of users
+    error : " " , // display error
+}
+
+Actions 
+------------------------
+FETCH_USERS_REQUEST --------->fetch users list
+FETCH_USERS_SUCCESS ----------> fetched successfully
+FETCH_USERS_FAILURE ------------> Eroor fetching failed
+
+Reducers
+-----------------------
+case FETCH_USERS_REQUEST :
+    loading : true
+
+case FETCH_USERS_SUCCESS :
+    loading : false
+    users : data(from API)
+
+case FETCH_USERS_FAILURE :
+    loading : false
+    error : error(from API)
+
+
+Install packages : axios and redux thunk
+
+axios-----------Request to api
+
+redux-thunk 
+--------------------
+1> middleware 
+2>Define Async Action creators
+
+npm install redux
+npm install redux-thunk
